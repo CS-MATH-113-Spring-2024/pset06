@@ -3,6 +3,11 @@
 \usepackage{amsmath}
 \usepackage[a4paper]{geometry}
 
+\usepackage{draftwatermark}
+\SetWatermarkText{Sample Solution}
+\SetWatermarkScale{3}
+\printanswers
+
 \title{Problem Set 06: Laws of Inference}
 \author{CS/MATH 113 Discrete Mathematics}
 \date{Spring 2024}
@@ -21,20 +26,44 @@
 \begin{parts}
     \part If $n$ is a real number such that $n > 1$, then $n^2 > 1$. \\
     Suppose that $n^2 > 1$. Then $n > 1$.
-     \begin{solution}
-    % Enter your solution here.
+    \begin{solution}
+      The form of this argument is as follows.
+      \[
+      \begin{array}{l}
+        p\implies q\\
+        \hline
+        q\implies p        
+      \end{array}
+      \]
+      This argument is invalid. If wrongly concludes the converse from the implication. This is a logical fallacy known as \textit{affirming the consequent}.
     \end{solution}
     
     \part If $n$ is a real number with $n > 3$, then $n^2 > 9$. \\
     Suppose that $n^2 \leq 9$. Then $n \leq 3$.
      \begin{solution}
-    % Enter your solution here.
+      The form of this argument is as follows.
+      \[
+      \begin{array}{l}
+        p\implies q\\
+        \hline
+        \neg q\implies \neg p
+      \end{array}
+      \]
+      This is a valid argument. It is an application of modus tollens.
     \end{solution}
     
     \part If $n$ is a real number with $n > 2$, then $n^2 > 4$. \\
     Suppose that $n \leq 2$. Then $n^2 \leq 4$.
      \begin{solution}
-    % Enter your solution here.
+      The form of this argument is as follows.
+      \[
+      \begin{array}{l}
+        p\implies q\\
+        \hline
+        \neg p\implies \neg q        
+      \end{array}
+      \]
+      This argument is invalid. If wrongly concludes the inverse from the implication. This is a logical fallacy known as \textit{denying the antecedent}.
      \end{solution}
    \end{parts}
    
@@ -49,19 +78,73 @@
     \item $\forall x(P(x) \lor \forall x Q(x))$ \hfill Conjunction from (4) and (6)
 \end{enumerate}
   \begin{solution}
-    % Enter your solution here.
+    There is an error in Step 3. Simplification cannot be applied over a disjunction.
+
+    Though not required to be indicated as the error in Step 3 already invalidates the proof, Step 7 also contains an error. The conjunction rule does not result in a disjunction. 
   \end{solution}
   
-  \question Sheikh Chilly, famous for his bizarre sense of humor and love of logic puzzles, left the following clues regarding the location of the hidden treasure. The treasure can only be in one place. If the house is next to a lake, then the treasure is in the kitchen. If the house is not next to a lake or the treasure is buried under the flagpole, then the tree in the front yard is an elm and the tree in the back yard is not an oak. If the treasure is in the garage, then the tree in the back yard is not an oak.  If the treasure is not buried under the flagpole, then the tree in the front yard is not an elm. 2 The treasure is not in the kitchen. Using rules of inference, determine where the treasure is hidden. Clearly state what your propositions represent.
+  \question Sheikh Chilly, famous for his bizarre sense of humor and love of logic puzzles, left the following clues regarding the location of the hidden treasure. The treasure can only be in one place. If the house is next to a lake, then the treasure is in the kitchen. If the house is not next to a lake or the treasure is buried under the flagpole, then the tree in the front yard is an elm and the tree in the back yard is not an oak. If the treasure is in the garage, then the tree in the back yard is not an oak.  If the treasure is not buried under the flagpole, then the tree in the front yard is not an elm. The treasure is not in the kitchen. Using rules of inference, determine where the treasure is hidden. Clearly state what your propositions represent.
   \begin{solution}
-    % Enter your solution here.
+    Using the following propositions,\\
+    \begin{tabular}{l@{ : }l}
+      $lake$ & the house is next to a lake\\
+      $kitchen$ & the treasure is in the kitchen\\
+      $flagpole$ & the treasure is buried under the flagpole\\
+      $elm$ & the tree in the front yard is an elm\\
+      $oak$ & the tree in the back yard is an oak
+    \end{tabular}
+    
+    the premises can be written as follows.
+    \begin{align}
+      lake & \implies kitchen \label{p1}\\
+      \neg lake \lor flagpole &\implies elm \land \neg oak \label{p2}\\
+      garage &\implies \neg oak \label{p3}\\
+      \neg flagpole &\implies \neg elm \label{p4}\\
+      \neg kitchen \label{p5}
+    \end{align}
+
+    We can then draw the following conclusions.
+    \begin{align}
+      \neg lake && \text{modus tollens on (\ref{p1}) and (\ref{p5})} \label{p6}\\
+      \neg lake \lor flagpole && \text{addition on (\ref{p6})} \label{p7}\\
+      elm \land \neg oak && \text{modus ponens on (\ref{p2}) and  (\ref{p7})} \label{p8}\\
+      elm && \text{simplification on (\ref{p8})} \label{p9}\\
+      flagpole && \text{modus tollens on (\ref{p4}) and (\ref{p9})} \label{p10}
+    \end{align}
+
+    Therefore, the treasure is buried under the flagpole.
   \end{solution}
   
-  \question Tommy Flanagan was telling you what he ate yesterday afternoon. He tells you, “I had either popcorn or raisins. Also, if I had cucumber sandwiches, then I had soda. But I didn't drink soda or tea.” You know that Tommy is the world’s worst liar, and everything he says is false. What did Tommy eat?
+\question Tommy Flanagan was telling you what he ate yesterday afternoon. He tells you, ``I had either popcorn or raisins. Also, if I had cucumber sandwiches, then I had soda. But I didn't drink soda or tea.'' You know that Tommy is the world’s worst liar, and everything he says is false. What did Tommy eat?
+  
 Justify your answer by writing all of Tommy's statements using sentence variables (P, Q, R, S, T), taking their negations, and using these to deduce what Tommy actually ate.
 
   \begin{solution}
-    % Enter your solution here.
+    Let the propositions be,\\
+    \begin{tabular}{l@{ : }l}
+      $P$ & I had popcorn\\
+      $Q$ & I had raisins\\
+      $R$ & I had cucumber sandwiches\\
+      $S$ & I had soda\\
+      $T$ & I had tea
+    \end{tabular}
+
+    Then Tommy's claims and their negations are as follows.
+    \[
+      \begin{array}{c|c@{\qquad}r}
+        \text{Claim} & \text{Negation}\\
+        \hline
+        P \lor Q & \neg P \land \neg Q &  (1)\\
+        R \implies S & R\land \neg S &  (2)\\
+        \neg(S\lor T) & S\lor T &  (3)
+      \end{array}
+    \]
+    And we can draw the following conclusions.
+    \begin{align*}
+      \neg S && \text{simplification on (2)} && (4)\\
+      T && \text{disjuctive syllogism on (3) and (4)} && (5)
+    \end{align*}
+    Therefore, Tommy had tea.
   \end{solution}
 
   \question Following is a quote by Sherlock Holmes from \textit{“A Study in Scarlet”} in which he solves a murder case.
@@ -73,13 +156,51 @@ After stating the above, Sherlock Holmes concludes: \textit{``It was a woman''}.
 Show the premises and logical inferences involved in deducing the conclusion.
 
   \begin{solution}
-    % Enter your solution here.
+    The relevant propositions are,\\
+    \begin{tabular}{l@{ : }l}
+      $P$ & It was politics\\
+      $Q$ & It was a woman\\
+      $R$ & The assassin leaves hastily
+    \end{tabular}
+
+    Then the premises are:
+    \begin{align}
+    \setcounter{equation}{0}
+      P & \lor Q \label{pa}\\
+      P & \implies R \label{pb}\\
+      \neg R \label{pc}
+    \end{align}
+
+    and we can reason as follows:
+    \begin{align}
+      \neg P && \text{modus tollens on (\ref{pb}) and (\ref{pc})} \label{pd}\\
+      Q && \text{disjuctive syllogism on (\ref{pa}) and (\ref{pd})} \label{pe}
+    \end{align}
   \end{solution}
   
   \question Use rules of inference to show that if $\forall x(P(x) \implies (Q(x) \land S(x)))$ and $\forall x(P(x) \land R(x))$ are true, then $\forall x(R(x) \land S(x))$ is true.
   \begin{solution}
-      % Enter your solution here.
-    \end{solution}
+    The given argument is
+    \begin{align}
+      \setcounter{equation}{0}
+      \forall x(P(x) &\implies (Q(x) \land S(x))) \label{p11}\\
+      \forall x(P(x) &\land R(x)) \label{p12}\\
+      \cline{1-2}
+      \forall x(R(x) &\land S(x)) \label{c}
+    \end{align}
+    We can reason as follows.
+    \begin{align}
+      P(c) & \implies (Q(c)\land S(c)) && \text{UI on (\ref{p11})} \label{p13}\\
+      P(c) & \land R(c) && \text{UI on (\ref{p12})} \label{p14}\\
+      P(c) &  && \text{simplification on (\ref{p14})} \label{p15}\\
+      R(c) &  && \text{simplification on (\ref{p14})} \label{p16}\\
+      Q(c) & \land S(c) && \text{modus ponens on (\ref{p13}) and  (\ref{p15})} \label{p17}\\
+      S(c) &  && \text{simplification on (\ref{p17})} \label{p18}\\
+      R(c) & \land S(c) && \text{conjunction on (\ref{p16}) and  (\ref{p18})} \label{p19}\\
+      \forall x(R(x) &\land S(x))  && \text{UG on (\ref{p19})} \label{p20}
+    \end{align}
+    (\ref{p20}) is the same as the conclusion, (\ref{c}). Therefore, the argument is valid.
+  \end{solution}
 
 \end{questions}
 \end{document}
